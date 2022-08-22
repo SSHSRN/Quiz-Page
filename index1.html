@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HomePage</title>
+        <!-- BootStrap CSS => For styling -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+            crossorigin="anonymous"
+        />
+
+        <!-- FontAwesome CSS => For icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-light bg-light">
+            <a class="navbar-brand" href="#">Quiz-App</a>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a
+                        class="pl-2 pr-0 ml-2"
+                        data-toggle="modal"
+                        data-target="#userSettingsModal"
+                        href="#"
+                        >
+                        <svg width="25" height="25" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M146.658 357.522L146.434 357.852L146.707 358.144C174.06 387.424 212.868 405.833 256 405.833C299.132 405.833 337.94 387.424 365.293 358.144L365.566 357.852L365.342 357.522C346.119 329.235 314.076 310.369 277.333 310.369H234.667C197.945 310.369 165.881 329.235 146.658 357.522ZM43.1666 256C43.1666 140.628 140.628 43.1667 256 43.1667C371.372 43.1667 468.833 140.628 468.833 256C468.833 371.372 371.372 468.833 256 468.833C140.628 468.833 43.1666 371.372 43.1666 256ZM320.5 213.333C320.5 176.193 293.119 148.833 256 148.833C218.903 148.833 191.5 176.193 191.5 213.333C191.5 250.474 218.903 277.833 256 277.833C293.119 277.833 320.5 250.474 320.5 213.333Z" fill="#007BFF" stroke="white"/>
+                        </svg>                   
+                    </a>
+                </li>
+              </ul>
+            
+          </nav>
+        <center><h1>This is the Home Page</h1></center>
+        <center><h3>Signed in user's email is: <span id="signedInEmail"></span></h3></center>
+
+        <!-- User Modal -->
+		<div
+            class="modal"
+            data-keyboard="true"
+            id="userSettingsModal"
+            tabindex="-1"
+        >
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title ml-3">User Settings</h3>
+                        <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                            <span class="modal-close-button mt-2" aria-hidden="true"><i class="fas fa-times fa-lg mt-2 mr-2"></i></span>
+                        </button>
+                    </div>
+
+                    <!-- User Image -->
+                    <div class="modal-body">
+                        <center><img id="userImage" style="border-radius: 100%;" alt="" srcset=""></center>
+                    </div>
+
+                    <!-- User Name -->
+                    <div class="row ml-1">
+                        <div class="col">
+                            <p class="h6 text-muted mt-2">Name</p>
+                        </div>
+                        <div class="col">
+                            <label class="switch mb-0">
+                                <p style="display: block;" id="userName">Anonymous</p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- User Email -->
+                    <div class="row ml-1">
+                        <div class="col">
+                            <p class="h6 text-muted mt-2">Email</p>
+                        </div>
+                        <div class="col">
+                            <label class="switch mb-0">
+                                <p id="userEmail"></p>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="container d-flex justify-content-center my-1">
+                            <button type="button" class="btn btn-primary shadow-none" data-dismiss="modal" id="logoutButton">
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
+            import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+        
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+            apiKey: "AIzaSyCjooIJ292ViCLMDl3iwnfgj0NZw-bECYo",
+            authDomain: "quiz-app-with-login-bd4d3.firebaseapp.com",
+            projectId: "quiz-app-with-login-bd4d3",
+            storageBucket: "quiz-app-with-login-bd4d3.appspot.com",
+            messagingSenderId: "277098954080",
+            appId: "1:277098954080:web:003365dc79cda8fa503205",
+            measurementId: "G-DSQFHRRQD7"
+            };
+        
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const auth = getAuth();
+            console.log("Firebase initialised");
+
+            const user = auth.currentUser;
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // User is signed in, see docs for a list of available properties
+                    // https://firebase.google.com/docs/reference/js/firebase.User
+                    const uid = user.uid;
+                    document.getElementById("signedInEmail").innerText = user.email;
+                    // ...
+                } else {
+                    // User is signed out
+                    // ...
+                    window.location.replace("error.html");
+                }
+            });
+
+            function getValues(user) {
+				const uid = user.uid;
+				// uid only has a local scope, thus it is again redefined in setValues() function
+				// console.log("UID: " + uid);
+				if(user.displayName != null){
+					document.getElementById("userName").innerText = user.displayName.replace(" ", "\u00A0");
+				}
+				// \u00A0 => To add a non breaking space => does not let the name get separated into two lines.
+				document.getElementById("userEmail").innerText = user.email;
+				document.getElementById("userImage").src = user.photoURL;
+			}
+
+            logoutButton.addEventListener('click', (e) => {
+                signOut(auth)
+                    .then(() => {
+                        // Sign-out successful.
+                        // alert("User signed out!");
+                        window.location.replace("index.html");
+                    })
+                    .catch((error) => {
+                        // An error happened.
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        alert(errorMessage);
+                    });
+            });
+        </script>
+    </body>
+</html>
